@@ -11,6 +11,7 @@ const index = async (req : Request, res : Response) => {
         raw : true
     });
     res.render('client/pages/tour/index' , {
+        pageTitle : "Danh sách tour du lịch",
         tours : tours
     })
 }
