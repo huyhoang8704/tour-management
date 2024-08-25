@@ -1,7 +1,6 @@
-import express , { Express , Request , Response } from "express";
-import sequelize from "./config/database";
+import express , { Express } from "express";
 import dotenv from "dotenv";
-import Tour from "./models/tour.model";
+import clientRoutes from "./routes/client/index.route";
 
 dotenv.config();
 
@@ -12,18 +11,10 @@ const port : number | string = process.env.PORT || 3002;
 app.set('views','./views');
 app.set('view engine', 'pug');
 
-// Connect Mysql
-sequelize;
 
-app.get('/tours', async (req : Request, res : Response) => {
-    const tours = await Tour.findAll({
-        raw : true
-    });
-    res.render('client/pages/tour/index' , {
-        tours : tours
-    })
-})
 
+// Connect Routes
+clientRoutes(app);
 
 app.listen(port , () =>{
     console.log(`App listening on port ${port}`);
