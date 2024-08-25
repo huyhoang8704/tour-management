@@ -1,6 +1,7 @@
 import express , { Express , Request , Response } from "express";
 import sequelize from "./config/database";
 import dotenv from "dotenv";
+import Tour from "./models/tour.model";
 
 dotenv.config();
 
@@ -14,8 +15,13 @@ app.set('view engine', 'pug');
 // Connect Mysql
 sequelize;
 
-app.get('/',(req : Request, res : Response) => {
-    res.send('Trang chủ')
+app.get('/tours', async (req : Request, res : Response) => {
+    const tours = await Tour.findAll({
+        raw : true
+    });
+    res.render('client/pages/tour/index' , {
+        tours : tours
+    })
 })
 
 
