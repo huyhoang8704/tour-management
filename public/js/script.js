@@ -33,31 +33,33 @@ showMiniCart();
 // Hết Hiển thị số lượng vào mini cart
 
 // Cart
-// Khởi tạo giỏ hàng
+// Khởi tạo giỏ hàng khi trong localStorage chưa có cart
 const cart = localStorage.getItem("cart");
 if(!cart) {
   localStorage.setItem("cart", JSON.stringify([]));
 }
 
-// Thêm tour vào giỏ hàng
+// thêm tour vào giỏ hàng
 const formAddToCart = document.querySelector("[form-add-to-cart]");
 if(formAddToCart) {
   formAddToCart.addEventListener("submit", (event) => {
-    event.preventDefault();
+    event.preventDefault();  // Để nó không load lại trang khi thêm vào localStorage
 
     const quantity = parseInt(formAddToCart.quantity.value);
     const tourId = parseInt(formAddToCart.getAttribute("tour-id"));
 
     if(quantity > 0 && tourId) {
       const cart = JSON.parse(localStorage.getItem("cart"));
-
+      
+      // Check xem trong giỏ hàng đã có sản phẩm cũ chưa
       const indexExistTour = cart.findIndex(item => item.tourId == tourId);
-
+      // Nếu chưa thêm vào bình thường
       if(indexExistTour == -1) {
         cart.push({
           tourId: tourId,
           quantity: quantity
         });
+      // Nếu có thì + quantity lên
       } else {
         cart[indexExistTour].quantity = cart[indexExistTour].quantity + quantity;
       }
