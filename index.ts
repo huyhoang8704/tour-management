@@ -1,5 +1,6 @@
 import express , { Express } from "express";
 import dotenv from "dotenv";
+import moment from "moment";
 import clientRoutes from "./routes/client/index.route";
 
 dotenv.config();
@@ -13,6 +14,9 @@ app.set('view engine', 'pug');
 
 // Folder static
 app.use(express.static('public'));
+
+// Biến toàn cục trả cho pug
+app.locals.moment = moment;
 
 // Connect Routes
 clientRoutes(app);
