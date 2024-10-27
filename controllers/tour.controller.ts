@@ -43,7 +43,7 @@ const detail = async (req, res) => {
             deleted : false,
             status : "active",
         },
-        raw : true
+        raw : true // mảng nó gọn gàng hơn
     })
     if(tourDetail["images"]) {
         tourDetail["images"] = JSON.parse(tourDetail["images"]);
